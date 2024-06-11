@@ -52,6 +52,11 @@
     .leaflet-popup-tip-container {
       display: none;
     }
+    .no-events {
+      text-align: center;
+      font-size: 18px;
+      color: #666;
+    }
   </style>
 </head>
 <body>
@@ -78,6 +83,14 @@
         }).addTo(map);
 
         const sidebar = document.getElementById('sidebar');
+
+        if (data.events.length === 0) {
+          const noEventsMessage = document.createElement('div');
+          noEventsMessage.classList.add('no-events');
+          noEventsMessage.textContent = 'Currently no storm alerts are there';
+          sidebar.appendChild(noEventsMessage);
+          return;
+        }
 
         data.events.forEach(event => {
           const coordinates = event.geometries[0].coordinates;
